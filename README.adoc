@@ -2,6 +2,9 @@
 
 An example Project for Reactive Spring Boot with RSocket in Kubernetes
 
+IMPORTANT: *RSocket is not designed for connection per request scenario, for details refer https://github.com/rsocket/rsocket-java/issues/911[here]*  
+
+
 [ditaa]
 ----
     +---------------------------------------------------------+                +---------------------------------------------------------+
