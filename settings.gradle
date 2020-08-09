@@ -1,0 +1,6 @@
+rootProject.name = 'k8s-rsocket-protobuf'
+
+include 'person-db-service'
+include 'person-service'
+include 'person-proto'
+

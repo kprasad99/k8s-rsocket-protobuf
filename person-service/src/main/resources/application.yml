@@ -1,0 +1,5 @@
+
+person.service:
+  ports:
+    http: 8080
+    rsocket: 9898

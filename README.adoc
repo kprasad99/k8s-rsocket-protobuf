@@ -1,0 +1,42 @@
+= Spring Boot WEBFLUX+RSocket in Kubernetes
+
+An example Project for Reactive Spring Boot with RSocket in Kubernetes
+
+[ditaa]
+----
+    +---------------------------------------------------------+                +---------------------------------------------------------+
+    |                  MS1: Person Service       [PORT:8181]  |                |            MS2: Person Database Service    [HTTP=8080]  |
+    |                                                         |                |                                            [RSOC=9898]  |
+    | +------------------+       +------------------------+   |                |  +---------------------+                                |
+ <--+>| /api/person      |<----->|    webflux client      |<--+----------------+->| /api/db/person      |<---+     +------------------+  |
+    | +------------------+       +------------------------+   |                |  +---------------------+    |     |{s}    H2         |  |
+    |                                                         |                |                             +---->|                  |  |
+    | +------------------+       +------------------------+   |                |  +---------------------+    |     |                  |  |
+ <--+>| /api/rsoc/person |<----->| rsoc req-stream client |<--+----------------+->| io....person.list   |<---+     |                  |  |
+    | +------------------+       +------------------------+   |                |  +---------------------+          +------------------+  |
+    |                                                         |                |                                                         |
+    +---------------------------------------------------------+                +---------------------------------------------------------+
+----
+
+
+== Run Locally before deploying to kubernetes.
+
+* Clone the project.
+* In first terminal and run below command.
++
+----
+$ ./gradlew person-db-service:bootRun
+----
+NOTE: on windows replace `./gradlew` with `gradlew.bat`
+
+* open second terminal and run below command
++
+----
+$ ./gradlew -Dserver.port=8181 person-service:bootRun
+----
+
+* Now you can following endpoints from browser.
+** RSocket based client: `http://localhost:8181/api/rsoc/person`
+** Webflux based client: `http://localhost:8181/api/person`
+
+
